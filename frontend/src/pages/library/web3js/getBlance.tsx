@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen items-center justify-center`}
+      className={`flex min-h-screen items-center justify-center bg-[#E7AA4F]`}
     >
       <div>
         <input type="text" 

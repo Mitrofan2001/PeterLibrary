@@ -25,3 +25,9 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.todolist_bg{
+  width: 100vw;
+  height: 100vh;
+  background-image: linear-gradient(180deg, rgb(222, 227, 241) 0%, rgb(217, 215, 250) 100%);
+}
