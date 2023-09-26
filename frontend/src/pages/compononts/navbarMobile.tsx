@@ -1,10 +1,16 @@
 import { clsx } from 'clsx'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function Navber(){
-    const [isMobileOpen, setIsMobileOpen] = useState<boolean>(true)
+export default function NavberMobile(){
+    const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false)
     const router = useRouter()
+
+    useEffect(() => {
+      router.events.on('routeChangeComplete', () => setIsMobileOpen(false))
+      return () => router.events.off('routeChangeComplete', () => setIsMobileOpen(false))
+    }, [setIsMobileOpen, router.events])
     return(
         <>
         {/* Mobile Open */}
@@ -30,7 +36,10 @@ export default function Navber(){
             X
           </button>
   
-            <nav className='mt-10'>a</nav>
+            <nav className='mt-10 flex flex-col gap-2'>
+              <Link href={'/'}>Home</Link>
+              <Link href={'/library/web3js/getBlance'}>getBalance</Link>
+            </nav>
         </aside>
       </>
     )
