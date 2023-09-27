@@ -89,7 +89,7 @@ function TodoList(){
 
     //main content for export to App.js
     return(
-        <div className='min-h-screen items-center justify-center todolist_bg px-10'>
+        <div className=' items-center pt-14 justify-center frontend_bg px-10'>
             <div className=' container max-w-[940px] mx-auto px-6 '>
                 <div className='border-b-2 border-[#97a2df] pt-[50px]'>
                     <div className='text-[#6877c9] text-[30px] leading-8 mb-2'>Todo List</div>
