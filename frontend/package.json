@@ -16,6 +16,7 @@
     "@truffle/hdwallet-provider": "^2.1.15",
     "clsx": "^2.0.0",
     "ethers": "^6.7.1",
+    "i18next": "^23.5.1",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",

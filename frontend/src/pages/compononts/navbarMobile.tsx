@@ -1,11 +1,58 @@
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { Children, useCallback, useEffect, useMemo, useState } from 'react'
+
+type NavLinkItem = {
+label:string
+path:string
+}
+
+type NavLinkList = {
+label:string
+children:NavLinkItem[]
+}
+
+type NavLink = NavLinkItem | NavLinkList
 
 export default function NavberMobile(){
     const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false)
     const router = useRouter()
+
+    const navLinks:NavLink[]=[
+      {
+        label:'home',
+        path:'/'
+      },
+      {
+        label:'Frontend basic Demo',
+        children:[
+            {
+              label:'todoList',
+              path:'/library/frontend/todolist'
+            }
+          ]
+      },
+      {
+        label:'Fronend plugin Demo',
+        children:[
+          {
+            label:'i18 translation',
+            path:'/'
+          }
+        ]
+      },
+      {
+        label:'web3.js Demo',
+        children:[
+          {
+            label:'getBlance',
+            path:'/library/web3js/getBlance'
+          }
+        ]
+      }
+    ]
+    
 
     useEffect(() => {
       router.events.on('routeChangeComplete', () => setIsMobileOpen(false))
@@ -37,15 +84,39 @@ export default function NavberMobile(){
           >
             X
           </button>
-  
-            <nav className='mt-10 flex flex-col gap-2 pl-2'>
-              <Link className='relative before:absolute before:content-["I"] before:text-white before:-left-2 before:top-0' href={'/'}>Home</Link>
-              <Link href={'/library/web3js/getBlance'}>II.getBalance</Link>
-              <Link href={'/library/frontend/todolist'}>III.todoList</Link>
+
+            <nav className='mt-10 grid-cols gap-2 overflow-y-auto'>
+              {navLinks.map((navLink, index) => (
+                <NavLink key={index} item={navLink}/>
+              ))}
             </nav>
         </aside>
       </>
     )
+}
+
+function NavLink ({item}:{item:NavLink}){
+  const router = useRouter()
+
+  if('children' in item){
+    return(
+      <>
+      <div>{item.label}</div>
+      {
+        item.children.map((sub:any, index:number) => (
+          <div key={index}>
+            <Link href={sub.path}>{sub.label}</Link>
+          </div>
+        ))}
+      </>
+    )
+  }else{
+    return(
+        <div>
+          <Link href={item.path}>{item.label}</Link>
+        </div>    
+    )
+  }
 }
 
   
